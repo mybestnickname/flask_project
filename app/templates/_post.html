@@ -1,0 +1,12 @@
+	<p>
+    <h2>{{post.post_title}}</h2>
+    {% if post.post_image_ref %}
+    <img height="42" width="42" src={{post.post_image_ref}}>
+    {% endif %}
+    <p>
+    {{post.post_text}}
+    <p>{{post.post_datetime}}</p>
+    <p>Кол-во просмотров: {{post.views}}</p>
+    </p>
+    <a href="{{ url_for('show_post', post_id=post.id) }}">Читать {{post.id}}</a>
+	</p>

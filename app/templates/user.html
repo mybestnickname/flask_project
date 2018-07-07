@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <table>
+        <tr valign="top">
+            {% if not current_user.userpic %}
+            <td><img src="{{ current_user.avatar(128) }}"></td>
+            {% else %}
+            <td><img src="{{ current_user.userpic }}"></td>
+            {% endif %}
+            <td>
+                <h1>User: {{ user.username }}</h1>
+                {% if user.about_user %}<p>{{ user.about_user }}</p>{% endif %}
+                {% if user.last_seen %}<p>Last seen on: {{ user.last_seen }}</p>{% endif %}
+            </td>
+        </tr>
+    </table>
+    {% if user == current_user %}
+            <p><a href="{{ url_for('edit_profile') }}">Редактировать</a></p>
+    {% endif %}
+    <hr>
+
+    <h2>Колоды:</h2>
+    <p><a href="{{ url_for('create_deck') }}">Создать колоду.</a></p>
+    {% for deck in decks %}
+        {% include '_deck.html' %}
+    {% endfor %} 
+
+    <h2>Комменты:</h2>
+    {% for comment in comments %}
+        {% include '_comment.html' %}
+    {% endfor %}
+{% endblock %}
+

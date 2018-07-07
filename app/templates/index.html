@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Hi, {{ current_user.username }}!
+    Тут описание сайта.</h1>
+    {% for deck in decks %}
+    <div><p>{{ deck.owner.username }}. Deck name: <b>{{ deck.deck_name }}</b></p></div>
+    {% endfor %}
+   
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+    <p>
+    <h2>{{post.post_title}}</h2>
+    {% if post.post_image_ref %}
+    <img src={{post.post_image_ref}}>
+    {% endif %}
+    <p>
+    {{post.post_text}}
+    <p>{{post.post_datetime}}</p>
+    <p>{{post.views}}</p>
+    </p>
+    </p>
+{% endblock %}

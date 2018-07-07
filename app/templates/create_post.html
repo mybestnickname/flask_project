@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Create new post</h1>
+    <form action="" method="post" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.post_title.label }}<br>
+            {{ form.post_title(size=128) }}<br>    
+            {% for error in form.post_title.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.post_text.label }}<br>
+            {{ form.post_text(cols=50, rows=4) }}<br>
+            {% for error in form.post_text.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <input type = "file" name = "file" />
+        <input type="reset">
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
