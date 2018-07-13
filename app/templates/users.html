@@ -1,5 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-Тут будет список пользователей с поиском по ним.
+<link href="/static/css/users.css" rel="stylesheet" type="text/css">
+<div class="container">
+    <h1>Поиск по пользователям:</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.search_username.label }}<br>
+            {{ form.search_username(size=64) }}<br>
+            {% for error in form.search_username.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        {{ form.submit() }}
+    </form>
+</div>
+{% for user in users %}
+<div class="container">
+<p><a href="{{ url_for('user', username=user.username) }}">{{user.username}}</a></p>
+</div>
+{% endfor %}
 {% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Тут список всех карточек в колоде {{ deck.deck_name }}:</h2>
+<h2>Создание карточки для колоды:</h2>
+    <form action="" method="post" enctype="multipart/form-data">
+        {{ creation_form.hidden_tag() }}
+        <p>
+            {{ creation_form.card_name.label }}<br>
+            {{ creation_form.card_name(size=32) }}<br>
+            {% for error in creation_form.card_name.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ creation_form.question.label }}<br>
+            {{ creation_form.question(cols=50, rows=4) }}<br>
+            {% for error in creation_form.question.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ creation_form.answer.label }}<br>
+            {{ creation_form.answer(cols=50, rows=4) }}<br>
+            {% for error in creation_form.answer.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        </p>
+        Картинки для карточки:
+        <input type = "file" name = "file" />
+        <input type = "file" name = "file" />
+        <input type = "file" name = "file" />
+        <input type="reset">
+        <p>{{ creation_form.submit() }}</p>
+    </form>
+{% endblock %}

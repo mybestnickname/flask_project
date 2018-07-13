@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
     <p>
     <h2>{{post.post_title}}</h2>
     {% if post.post_image_ref %}
@@ -11,4 +12,29 @@
     <p>{{post.views}}</p>
     </p>
     </p>
+
+    <h2>Комменты:</h2>
+    {% for comment in comments %}
+        {% include '_comment.html' %}
+    {% endfor %}
+    </p>
+
+    <h1>Добавить комментарий:</h1>
+    <form action="" method="post">
+        {{ comment_form.hidden_tag() }}
+        <p>
+            {{ current_user.username }}:
+        </p>
+        <p>
+            {{ comment_form.comment_text.label }}<br>
+            {{ comment_form.comment_text(cols=50, rows=4) }}<br>
+            {% for error in comment_form.comment_text.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ comment_form.submit() }}
+        </p>
+    </form>
+</div>
 {% endblock %}

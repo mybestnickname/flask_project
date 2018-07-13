@@ -1,11 +1,15 @@
 <table border="thick">
 	<th>Имя колоды: {{ deck.deck_name }}.</th>	
     <tr><td>Владелец: {{ deck.owner.username }}</td></tr>
-    <tr><td>тут пикча если есть</td></tr>
+    <tr><td><img height="220" width="260" src={{deck.deckpic}}></td></tr> 
     <tr><td></td><td>Инфо: {{ deck.deck_info }}</td></tr>
+    <!--редактирование колоды и карточек доступно только для владельца-->
+    {% if deck.owner.username == current_user.username %}
     <ul>
     <li><a href="{{ url_for('edit_profile') }}">Учить.</a></li>
-    <li><a href="{{ url_for('edit_profile') }}">Редактировать колоду.</a></li>
-    <li><a href="{{ url_for('edit_profile') }}">Удалить.</a></li>
+    <li><a href="{{ url_for('edit_deck_cards', deck_id=deck.id) }}">Редактировать карточки.</a></li>
+    <li><a href="{{ url_for('edit_deck', deck_id=deck.id) }}">Редактировать колоду.</a></li>
+    <li><a href="{{ url_for('delete_deck', deck_id=deck.id) }}">Удалить колоду.</a></li>
     </ul>
+    {% endif %}
 </table>

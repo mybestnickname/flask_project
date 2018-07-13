@@ -1,12 +1,51 @@
-	<p>
-    <h2>{{post.post_title}}</h2>
-    {% if post.post_image_ref %}
-    <img height="42" width="42" src={{post.post_image_ref}}>
-    {% endif %}
-    <p>
-    {{post.post_text}}
-    <p>{{post.post_datetime}}</p>
-    <p>Кол-во просмотров: {{post.views}}</p>
-    </p>
-    <a href="{{ url_for('show_post', post_id=post.id) }}">Читать {{post.id}}</a>
-	</p>
+<link href="/static/css/post.css" rel="stylesheet">
+    <script type="text/javascript">
+        window.alert = function(){};
+        var defaultCSS = document.getElementById('bootstrap-css');
+        function changeCSS(css){
+            if(css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="'+ css +'" type="text/css" />'); 
+            else $('head > link').filter(':first').replaceWith(defaultCSS); 
+        }
+        $( document ).ready(function() {
+          var iframe_height = parseInt($('html').height()); 
+          window.parent.postMessage( iframe_height, 'https://bootsnipp.com');
+        });
+    </script>
+
+<div class="row">
+    <div class="col-md-12 post">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>
+                    <strong><a href="{{ url_for('show_post', post_id=post.id) }}" class="post-title">{{post.post_title}}</a></strong></h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 post-header-line">
+                <span class="glyphicon glyphicon-user"></span>by <a href="{{ url_for('user', username='admin') }}">Admin</a> | <span class="glyphicon glyphicon-calendar">
+                </span>{{post.post_datetime}} | <span class="glyphicon glyphicon-comment"></span><a href="#">
+                !!!!!!3 Comments!!!!!!!!!!</a> | <span class="glyphicon glyphicon-eye-open"></span>Просмотров: {{post.views}}| <span class="glyphicon glyphicon-tags">
+                </span>Tags : <a href="#"><span class="label label-info">Snipp</span></a> <a href="#">
+                <span class="label label-info">Bootstrap</span></a> <a href="#"><span class="label label-info">
+                UI</span></a> <a href="#"><span class="label label-info">growth</span></a>
+            </div>  
+        </div>
+            <div class="row post-content">
+                <div class="col-md-3">
+                    <a href="#">
+                        {% if post.post_image_ref %}
+                        <img height="320" width="260" src={{post.post_image_ref}}>
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="col-md-9">
+                    <p>
+                        {{post.post_text}}
+                    </p>
+                    <p><a class="btn btn-read-more" href="{{ url_for('show_post', post_id=post.id) }}">Читать</a></p>
+                </div>
+            </div>
+    </div>
+</div>
+
+

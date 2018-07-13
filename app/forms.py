@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileAllowed
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms import TextAreaField, FileField
 from wtforms.validators import DataRequired, Length
@@ -46,6 +47,21 @@ class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     about_user = TextAreaField('About user',
                                validators=[Length(min=0, max=140)])
+    first_skill = StringField('First skill:', validators=[
+                              Length(min=0, max=128)])
+    second_skill = StringField('Second skill:', validators=[
+        Length(min=0, max=128)])
+    third_skill = StringField('Third skill:', validators=[
+                              Length(min=0, max=128)])
+    fourth_skill = StringField('Fourth skill:', validators=[
+        Length(min=0, max=128)])
+    fifth_skill = StringField('Fifth skill:', validators=[
+                              Length(min=0, max=128)])
+
+    avatar_pic = FileField('image', validators=[
+                           FileAllowed(['jpeg', 'jpg', 'png', 'gif'],
+                                       'Images only!')])
+
     submit = SubmitField('Submit')
 
     def __init__(self, original_username, *args, **kwargs):
@@ -68,11 +84,6 @@ class DeckCreationForm(FlaskForm):
     submit = SubmitField('CreateDeck')
 
 
-class DeleteDeckForm(FlaskForm):
-    check_box = BooleanField()
-    submit = SubmitField('Confirm delete')
-
-
 class PostCreationForm(FlaskForm):
     """Формы создания нового поста админом"""
     post_title = StringField('New post title:',
@@ -81,4 +92,41 @@ class PostCreationForm(FlaskForm):
     post_text = TextAreaField('New post text:',
                               validators=[DataRequired(),
                                           Length(min=1, max=1024)])
-    submit = SubmitField('CreatePost')
+    submit = SubmitField('Добавить пост.')
+
+
+class NewCommentForm(FlaskForm):
+    """Формы создания нового коммента к посту"""
+    comment_text = TextAreaField('Текст комментария:',
+                                 validators=[DataRequired(),
+                                             Length(min=1, max=256)])
+    submit = SubmitField('Отправить комментарий')
+
+
+class EditDeckForm(FlaskForm):
+    """Формы редактирования колоды"""
+    deck_name = StringField('Deck name', validators=[DataRequired(),
+                                                     Length(min=7, max=64)])
+    deck_info = TextAreaField('Deck info', validators=[Length(min=1, max=256)])
+    deck_pic = FileField()
+    submit = SubmitField('Edit Deck')
+
+
+class SearchUserForm(FlaskForm):
+    """Форма для поиска пользователя по имени"""
+    search_username = StringField('Имя пользователя:',
+                                  validators=[DataRequired(),
+                                              Length(min=2, max=64)])
+    submit = SubmitField('Искать.')
+
+
+class CreateCardForm(FlaskForm):
+    """Форма для создания новой карточки в колоду"""
+    card_name = StringField('Название карточки:',
+                            validators=[DataRequired(),
+                                        Length(min=1, max=64)])
+    question = TextAreaField('Вопрос:', validators=[DataRequired(),
+                                                    Length(min=1, max=256)])
+    answer = TextAreaField('Ответ:', validators=[DataRequired(),
+                                                 Length(min=1, max=1024)])
+    submit = SubmitField('Добавить карточку.')
